@@ -2120,9 +2120,12 @@ def categorical_column_with_hash_bucket(key,
                      'hash_bucket_size: {}, key: {}'.format(
                          hash_bucket_size, key))
 
-  if key != 'brand_id' and key != 'brand_id_list' and hash_bucket_size == 10000:
+  if hash_bucket_size == 10000:
     print(f'-- categorical_column_with_hash_bucket resize {key}: 10000 -> 1000')
     hash_bucket_size = 1000
+  if hash_bucket_size == 100000:
+    print(f'-- categorical_column_with_hash_bucket resize {key}: 100000 -> 50000')
+    hash_bucket_size = 50000
   fc_utils.assert_key_is_string(key)
   fc_utils.assert_string_or_int(dtype, prefix='column_name: {}'.format(key))
 
